@@ -14,12 +14,14 @@ API elements:
 
 obd.: In Event id is defined an Unique Identifier name
 
+- EndPoint: http://localhost:8080
+
 API Strucure:
 
 a) Defining a context element entity for event types:
 
--- use the post for JSON endpoint: http://localhost:8080/rabbitmq/event/create
--- post method with Body:
+-- server endpoint: EndPoint/rabbitmq/event/create
+-- post request Body:
 
 {
 "type" : "ADD_EVENT",
@@ -39,8 +41,10 @@ a) Defining a context element entity for event types:
 }
 
 b) Creating context rules for event types:
--- post RabbitMQ endpoint: http://localhost:8080/rabbitmq/rule/create
--- post method with Body:
+
+-- server endpoint: EndPoint/rabbitmq/rule/create
+-- post request Body:
+
 {
 "type" : "RULECEP",
 "id" : "Rule7",
@@ -59,8 +63,9 @@ b) Creating context rules for event types:
 
 c) Updating context rules for event types:
 
--- put RabbitMQ endpoint: http://localhost:8080/rabbitmq/rule/update
--- post method with Body:
+-- server endpoint: EndPoint/rabbitmq/rule/update
+-- post request Body:
+
 {
 "type" : "EDIT_RULECEP",
 "id" : "Rule3",
@@ -85,8 +90,8 @@ c) Updating context rules for event types:
 
 d) Delete a rule defined:
 
--- delete RabbitMQ endpoint: http://localhost:8080/rabbitmq/rule/delete
--- post method with Body:
+-- server endpoint: EndPoint/rabbitmq/rule/delete
+-- post request Body:
 
 {
 "type" : "DEL_RULE",
@@ -102,8 +107,8 @@ d) Delete a rule defined:
 
 e) Scope of data producer:
 
--- post RabbitMQ endpoint: http://localhost:8080/rabbitmq/data/create
--- post method with Body:
+-- server endpoint: EndPoint/rabbitmq/data/create
+-- post request Body:
 
 {
 "type" : "EventTest",
