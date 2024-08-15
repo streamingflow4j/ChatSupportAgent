@@ -1,0 +1,22 @@
+version: "3"
+services:
+
+  chat-support:
+    container_name: chat-support
+    build:
+      context: ./target
+      dockerfile: ./Dockerfile
+    image: chat-support:latest
+    ports:
+      - "8185:8185"
+      - "1234:1234"
+    environment:
+      environment:
+      JAR_NAME: ChatSupportAgent-0.0.1-SNAPSHOT.jar
+    networks:
+      - rabbitmq_go_net
+    
+networks:
+  rabbitmq_go_net:
+    external:
+      name: localNet
