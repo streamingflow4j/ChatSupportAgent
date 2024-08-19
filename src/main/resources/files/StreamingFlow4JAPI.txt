@@ -9,7 +9,7 @@ API elements:
 - RULE indicate an EPL(Esper Query Language) this QUERY should be added(EX.: select measure from EventTest.win:time(5 sec))
 - QUEUE define destination queue of rule trigger
 - EDIT_RULECEP define EDITION of a rule
-- RULE_ID ID of rule to be Edited/Deleted
+- RULE_ID the ID of rule to be Edited/Deleted
 - DEL_RULE command to delete rule
 
 obd.: In Event id is defined an Unique Identifier name

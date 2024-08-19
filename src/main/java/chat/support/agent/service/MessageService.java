@@ -46,8 +46,8 @@ public class MessageService {
 	}
 
 	public String userChat(String msg) throws IOException {
-		ChatLanguageModel model = AiModelFactory.createOpenAIChatModel();
-		//ChatLanguageModel model = AiModelFactory.createLocalChatModel();
+		//ChatLanguageModel model = AiModelFactory.createOpenAIChatModel();
+		ChatLanguageModel model = AiModelFactory.createLocalChatModel();
 		InMemoryEmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 		//2 - em memoria carrega o vetor embedando os documentos
 		EmbeddingStoreIngestor.ingest(Util.getDocs(), embeddingStore);
