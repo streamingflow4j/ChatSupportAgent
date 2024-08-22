@@ -1,0 +1,123 @@
+API SCOPE:
+
+Obs.: All the API are exemplified using a Type event = "EventTest" with the followings attributes "id" and "measure".
+
+API elements:
+
+- ADD_EVENT add event type, every before specific rule
+- RULECEP define addiction of a new rule
+- RULE indicate an EPL(Esper Query Language) this QUERY should be added(EX.: select measure from EventTest.win:time(5 sec))
+- QUEUE define destination queue of rule trigger
+- EDIT_RULECEP define EDITION of a rule
+- RULE_ID the ID of rule to be Edited/Deleted
+- DEL_RULE command to delete rule
+
+obd.: In Event id is defined an Unique Identifier name
+
+- EndPoint: http://localhost:8080
+
+API Strucure:
+
+a) Defining a context element entity for event types:
+
+-- server endpoint: EndPoint/rabbitmq/event/create
+-- post request Body:
+
+{
+"type" : "ADD_EVENT",
+"id" : "EventTest",
+"attributes" : [
+{
+"name"  : "id",
+"type"  : "String",
+"value" : "0"
+},
+{
+"name" : "measure",
+"type"  : "Double",
+"value" : "0"
+}
+]
+}
+
+b) Creating context rules for event types:
+
+-- server endpoint: EndPoint/rabbitmq/rule/create
+-- post request Body:
+
+{
+"type" : "RULECEP",
+"id" : "Rule7",
+"attributes" : [
+{ "name"  : "RULE",   --Attribute for rule definition
+"type"  : "String",
+"value" : "select measure from EventTest.win:time(5 sec)"
+},
+{
+"name"  : "QUEUE_1",
+"type"  : "QUEUE",         --Attribute for destination queue of rule outcomes
+"value" : "si.cep.queue"
+}
+]
+}
+
+c) Updating context rules for event types:
+
+-- server endpoint: EndPoint/rabbitmq/rule/update
+-- post request Body:
+
+{
+"type" : "EDIT_RULECEP",
+"id" : "Rule3",
+"attributes" : [
+{
+"name"  : "RULE_ID",   --Obs.: rule id can be obtained in the logfile.
+"type"  : "String",
+"value" : "7083533ac2e0"
+},
+{
+"name"  : "RULE",    --Attribute for rule update
+"type"  : "String",
+"value" : "select measure from EventTest.win:time(10 sec)"
+},
+{
+"name"  : "QUEUE_1",
+"type"  : "QUEUE",        --You can change destination queue or else keep the same
+"value" : "si.cep.queue"
+}
+]
+}
+
+d) Delete a rule defined:
+
+-- server endpoint: EndPoint/rabbitmq/rule/delete
+-- post request Body:
+
+{
+"type" : "DEL_RULE",
+"id" : "DelRule3",
+"attributes" : [
+{
+"name"  : "RULE_ID",
+"type"  : "String",
+"value" : "59684e480327"
+}
+]
+}
+
+e) Scope of data producer:
+
+-- server endpoint: EndPoint/rabbitmq/data/create
+-- post request Body:
+
+{
+"type" : "EventTest",
+"id" : "1",
+"attributes" : [
+{
+"name" : "measure",
+"type" : "Double",
+"value" : "2"
+}
+]
+}

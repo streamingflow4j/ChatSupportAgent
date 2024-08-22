@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 @Controller
@@ -31,7 +32,7 @@ public class ChatController {
 	}
 
 	@PostMapping
-	public String postChatMessage(ChatForm chatForm, Model model) throws IOException {
+	public String postChatMessage(ChatForm chatForm, Model model) throws IOException, ExecutionException, InterruptedException {
 		chatForm.setUsername("User");
 		this.messageService.addMessages(chatForm);
 		model.addAttribute("chats", this.messageService.getMessages());

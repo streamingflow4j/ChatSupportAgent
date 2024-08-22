@@ -13,19 +13,15 @@ import java.util.List;
 import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.loadDocument;
 
 public class Util {
-    private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext();
+
     public static Document getDoc() throws IOException {
-       // Resource fileResource = applicationContext.getResource("classpath:StreamingFlow4JAPI.txt");
-        String fileResource2 = applicationContext.getResource("classpath:files/StreamingFlow4JAPI.txt").getFile().getCanonicalPath();
-        String path = fileResource2.replace("\\", "\\\\");
+        String path = System.getProperty("User.dir") + "files/StreamingFlow4JAPI.txt";
         Document payloadAPI = loadDocument(path.toString(), new TextDocumentParser());
         return payloadAPI;
     }
 
     public static List<Document> getDocs() throws IOException {
-
-        String fileResource2 = applicationContext.getResource("classpath:files").getFile().getCanonicalPath();
-        String path = fileResource2.replace("\\", "\\\\");
+        String path = System.getProperty("User.dir") + "files/StreamingFlow4JAPI.txt";
         List<Document> documents =
                 FileSystemDocumentLoader.loadDocuments(path.toString());
 

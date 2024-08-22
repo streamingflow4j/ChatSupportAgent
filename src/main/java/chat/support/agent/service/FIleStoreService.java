@@ -25,20 +25,13 @@ import java.util.stream.Stream;
 public class FIleStoreService {
 
     private Path rootLocation;
-    private  ApplicationContext applicationContext = new ClassPathXmlApplicationContext();
 
     public FIleStoreService(){
         rootLocation = Paths.get(getRootDocDir());
     }
     public String getRootDocDir() {
-        try {
-            String fileResource2 = applicationContext.getResource("classpath:files").getFile().getCanonicalPath();
-            String path = fileResource2.replace("\\", "\\\\");
-            return path;
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return null;
+        String path = System.getProperty("User.dir") + "files/StreamingFlow4JAPI.txt";
+        return path;
     }
     public String store(MultipartFile file) {
         try {

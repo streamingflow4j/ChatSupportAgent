@@ -2,9 +2,8 @@ package chat.support.agent.langchain4j;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.model.openai.OpenAiStreamingChatModel;
-
+import dev.langchain4j.model.ollama.OllamaChatModel;
+import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import java.time.Duration;
 
 public class AiModelFactory {
@@ -12,40 +11,21 @@ public class AiModelFactory {
     private AiModelFactory() {
         throw new IllegalStateException("Factory class shouldn't be instantiated");
     }
-
-    public static ChatLanguageModel createLocalChatModel() {
-        return OpenAiChatModel.builder()
-                .baseUrl("http://localhost:1234/v1")
-                .apiKey("ignore")
-           //     .temperature(0.7)
-                .logRequests(true)
-                .timeout(Duration.ofSeconds(300))
+    
+    public static ChatLanguageModel createLocalChatOllamaModel() {
+        return  OllamaChatModel.builder()
+                .baseUrl("http://localhost:11434/")
+                .modelName("gemma:2b")
+                .temperature(0.8)
                 .build();
     }
 
-    public static StreamingChatLanguageModel createStremingLocalChatModel() {
-        return OpenAiStreamingChatModel
-                .builder()
-                .baseUrl("http://localhost:1234/v1")
-                .apiKey("ignore")
-                .logRequests(true)
-                .timeout(Duration.ofSeconds(300))
-                .build();
-    }
-
-    public static ChatLanguageModel createOpenAIChatModel() {
-        return OpenAiChatModel.builder()
-                .modelName("gpt-3.5-turbo")
-                .apiKey("demo")
-              //  .temperature(0.7)
-                .logRequests(true)
-                .build();
-    }
-    public static StreamingChatLanguageModel createStremingOpenAIChatModel() {
-        return OpenAiStreamingChatModel
-                .builder()
-                .modelName("gpt-3.5-turbo")
-                .apiKey("Demo")
+    //-------------------  StreamingChat Models ----------------
+    public static StreamingChatLanguageModel createLocalOllamaStreamingChatModel() {
+        return OllamaStreamingChatModel.builder()
+                .baseUrl("http://localhost:11434/")
+                .modelName("gemma:2b")
+                .timeout(Duration.ofHours(1))
                 .build();
     }
 

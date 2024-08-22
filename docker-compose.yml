@@ -1,22 +1,35 @@
 version: "3"
 services:
 
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "5000:11434"
+    volumes:
+      - ./ollama:/root/.ollama
+    restart: always
+    networks:
+      - chat_go_net
+
   chat-support:
-    container_name: chat-support
+    container_name: chatsupportagent
     build:
       context: ./target
       dockerfile: ./Dockerfile
-    image: chat-support:latest
+    image: chatsupportagent:latest
     ports:
       - "8185:8185"
-      - "1234:1234"
+    volumes:
+      - .:/app
+      - ./target/files:/files
     environment:
       environment:
       JAR_NAME: ChatSupportAgent-0.0.1-SNAPSHOT.jar
     networks:
-      - rabbitmq_go_net
-    
+      - chat_go_net
+
 networks:
-  rabbitmq_go_net:
-    external:
-      name: localNet
+  chat_go_net:
+    external: true
+    driver: bridge
