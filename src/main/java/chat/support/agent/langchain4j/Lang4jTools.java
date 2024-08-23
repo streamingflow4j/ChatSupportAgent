@@ -14,6 +14,8 @@ public class Lang4jTools {
 
     private static final String BASE_URI = "http://localhost:8080/rabbitmq";
 
+    public Lang4jTools(){}
+
     @Tool("Deletion for a defined Rule with API structure body")
     public void deleteRule(@P("Structure for Deletion body") String body) throws Exception {
         logger.warning("Tool executed: ===> "+body);

@@ -15,15 +15,15 @@ import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.load
 public class Util {
 
     public static Document getDoc() throws IOException {
-        String path = System.getProperty("User.dir") + "files/StreamingFlow4JAPI.txt";
-        Document payloadAPI = loadDocument(path.toString(), new TextDocumentParser());
+        String path = System.getProperty("user.dir") + "files/StreamingFlow4JAPI.txt";
+        Document payloadAPI = loadDocument(path, new TextDocumentParser());
         return payloadAPI;
     }
 
     public static List<Document> getDocs() throws IOException {
-        String path = System.getProperty("User.dir") + "files/StreamingFlow4JAPI.txt";
+        String path = System.getProperty("user.dir") + "files";
         List<Document> documents =
-                FileSystemDocumentLoader.loadDocuments(path.toString());
+                FileSystemDocumentLoader.loadDocuments(path);
 
         return documents;
     }

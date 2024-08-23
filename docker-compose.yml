@@ -2,17 +2,19 @@ version: "3"
 services:
 
   ollama:
-    image: ollama/ollama
     container_name: ollama
+    image: ollama/ollama
     ports:
       - "5000:11434"
+    environment:
+      OLLAMA_HOST: ollama
     volumes:
       - ./ollama:/root/.ollama
     restart: always
     networks:
       - chat_go_net
 
-  chat-support:
+  chatsupportagent:
     container_name: chatsupportagent
     build:
       context: ./target
@@ -20,12 +22,10 @@ services:
     image: chatsupportagent:latest
     ports:
       - "8185:8185"
-    volumes:
-      - .:/app
-      - ./target/files:/files
     environment:
-      environment:
+      OLLAMA_HOST: ollama
       JAR_NAME: ChatSupportAgent-0.0.1-SNAPSHOT.jar
+    restart: always
     networks:
       - chat_go_net
 

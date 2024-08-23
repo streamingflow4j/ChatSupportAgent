@@ -17,6 +17,7 @@ import dev.langchain4j.service.TokenStream;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,11 +31,12 @@ import java.util.concurrent.ExecutionException;
 public class MessageService {
 
 	private String message;
-	private final Lang4jTools lang4jTools;
+	//@Autowired
+	//private Lang4jTools lang4jTools;
 	private List<ChatMessage> chatMsglist;
 
-	public MessageService(Lang4jTools lang4jTools) {
-		this.lang4jTools = lang4jTools;
+	public MessageService() {
+
 	}
 
 	@PostConstruct
@@ -71,6 +73,7 @@ public class MessageService {
 		LangChain4jAssistant assistant = AiServices.builder(LangChain4jAssistant.class)
 				// Alternative of .chatLanguageModel() which support streaming response
 				.streamingChatLanguageModel(model)
+				//.tools(new Lang4jTools()) //-->> ollama nao suporta
 				.chatMemory(MessageWindowChatMemory.withMaxMessages(10))
 				.contentRetriever(EmbeddingStoreContentRetriever.from(this.getEmbedingStore()))
 				.build();

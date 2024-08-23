@@ -44,7 +44,7 @@ public class LangChain4jConfig {
             ResourceLoader resourceLoader
     ) {
         return args -> {
-            String path = System.getProperty("User.dir") + "files/StreamingFlow4JAPI.txt";
+            String path = System.getProperty("user.dir") + "files/StreamingFlow4JAPI.txt";
             Document termsOfUse = loadDocument(path.toString(), new TextDocumentParser());
             EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
                     .documentSplitter(recursive(50, 0, tokenizer))
