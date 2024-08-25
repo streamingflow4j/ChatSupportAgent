@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 
 public class Lang4jTools {
+    /*
     static Logger logger = Logger.getLogger(String.valueOf(Lang4jTools.class));
 
     private static final String BASE_URI = "http://localhost:8080/rabbitmq";
@@ -57,5 +58,5 @@ public class Lang4jTools {
                                         P payload) throws Exception {
         return RestUtil.request(endpoint,verbo,typeRef,payload);
     }
-
+*/
 }

@@ -21,7 +21,7 @@ import org.thymeleaf.util.StringUtils;
 
 
 public class RestUtil {
-
+/*
 	private static final Logger logger = LogManager.getLogger(RestUtil.class);
 	
 	private RestUtil() {
@@ -92,4 +92,6 @@ public class RestUtil {
 		}
 		return new HttpEntity<>(body, headers);
 	}
+
+ */
 }

@@ -90,7 +90,7 @@ public class MessageService {
 		CompletableFuture<String> future = new CompletableFuture<>();
 		tokenStream.onNext(System.out::print)
 				.onComplete((a) -> {
-					System.out.println(a);
+					//System.out.println(a);
 					future.complete(a.content().text());
 				})
 				.onError(Throwable::printStackTrace)
