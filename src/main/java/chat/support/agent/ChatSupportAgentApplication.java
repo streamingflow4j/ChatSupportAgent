@@ -16,8 +16,6 @@ import java.util.logging.Logger;
 @SpringBootApplication
 public class ChatSupportAgentApplication {
 
-	static Logger logger = Logger.getLogger(String.valueOf(ChatSupportAgentApplication.class));
-
 	public static void main(String[] args) {
 		SpringApplication.run(ChatSupportAgentApplication.class, args);
 	}
