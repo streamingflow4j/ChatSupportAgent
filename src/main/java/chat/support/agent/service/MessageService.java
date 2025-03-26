@@ -52,7 +52,6 @@ public class MessageService {
 	}
 
 	public List<ChatMessage> getMessages() {
-		//return new ArrayList<ChatMessage>(this.chatMsglist);
 		return chatMsglist;
 	}
 
@@ -63,14 +62,29 @@ public class MessageService {
 		return embeddingStore;
 	}
 
+	public String userChat(String msg) throws IOException, ExecutionException, InterruptedException {
+
+		ChatLanguageModel model = AiModelFactory.createLocalChatOllamaModel();
+
+		LangChain4jAssistant assistant = AiServices.builder(LangChain4jAssistant.class)
+				.chatLanguageModel(model)
+				.tools(new Lang4jTools())
+				.chatMemory(MessageWindowChatMemory.withMaxMessages(10))
+				.contentRetriever(EmbeddingStoreContentRetriever.from(this.getEmbedingStore()))
+				.build();
+
+		CompletableFuture<String> token = ask(assistant, msg);
+		logger.warning("Response: %s%n"+ token);
+
+		return token.get();
+	}
+
 	public String streamingUserChat(String msg) throws IOException, ExecutionException, InterruptedException {
 
 		StreamingChatLanguageModel model = AiModelFactory.createLocalOllamaStreamingChatModel();
 
 		LangChain4jAssistant assistant = AiServices.builder(LangChain4jAssistant.class)
-				// Alternative of .chatLanguageModel() which support streaming response
 				.streamingChatLanguageModel(model)
-				//.tools(new Lang4jTools()) //-->> ollama nao suporta
 				.chatMemory(MessageWindowChatMemory.withMaxMessages(10))
 				.contentRetriever(EmbeddingStoreContentRetriever.from(this.getEmbedingStore()))
 				.build();

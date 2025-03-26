@@ -15,7 +15,7 @@ import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.load
 public class Util {
 
     public static Document getDoc() throws IOException {
-        String path = System.getProperty("user.dir") + "files/StreamingFlow4JAPI.txt";
+        String path = System.getProperty("user.dir") + "/target/classes/files/StreamingFlow4JAPI.txt";
         Document payloadAPI = loadDocument(path, new TextDocumentParser());
         return payloadAPI;
     }
