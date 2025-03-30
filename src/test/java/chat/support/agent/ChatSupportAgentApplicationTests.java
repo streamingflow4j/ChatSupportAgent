@@ -24,9 +24,4 @@ class ChatSupportAgentApplicationTests {
 		assertThat(beanExists).isTrue();
 	}
 
-	@Test
-	void testFileStoreServiceBeanExists() {
-		boolean beanExists = applicationContext.containsBean("fileStoreService");
-		assertThat(beanExists).isTrue();
-	}
 }

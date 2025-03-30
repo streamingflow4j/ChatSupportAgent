@@ -35,7 +35,6 @@ public class MessageService {
 	private List<ChatMessage> chatMsglist;
 
 	public MessageService() {
-
 	}
 
 	@PostConstruct

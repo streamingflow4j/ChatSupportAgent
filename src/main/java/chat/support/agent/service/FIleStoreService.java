@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 @Service
 public class FIleStoreService {
 
-    private Path rootLocation;
+    private final Path rootLocation;
 
     public FIleStoreService(){
         rootLocation = Paths.get(getRootDocDir());
