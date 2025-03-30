@@ -5,10 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageForm {
-	private String text;
+public class Entity {
+	private String id;
+	private String type;
+	private List<Attribute> attributes;
+
 }

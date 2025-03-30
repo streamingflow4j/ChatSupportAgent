@@ -47,7 +47,7 @@ public class MessageService {
 	public void addMessages(ChatForm chatForm) throws IOException, ExecutionException, InterruptedException {
 		ChatMessage newMessage = new ChatMessage();
 		//add chat MSG streaming
-		newMessage.setMessage("|CHAT| ====> ", streamingUserChat(chatForm.getMessageText()));
+		newMessage.setMessage("|CHAT| ====> "+ streamingUserChat(chatForm.getMessageText()));
 		chatMsglist.add(newMessage);
 	}
 
