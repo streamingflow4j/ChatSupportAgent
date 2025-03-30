@@ -28,7 +28,7 @@ public class FileStoreService {
         rootLocation = Paths.get(getRootDocDir());
     }
     public String getRootDocDir() {
-        String path = System.getProperty("user.dir") + "/target/classes/files/StreamingFlow4JAPI.txt";
+        String path = System.getProperty("user.dir") + "/target/classes/files";
         return path;
     }
     public String store(MultipartFile file) {

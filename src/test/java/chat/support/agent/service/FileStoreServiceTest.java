@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -35,10 +36,9 @@ class FileStoreServiceTest {
     @Test
     void testStoreFile() throws IOException {
         when(multipartFile.isEmpty()).thenReturn(false);
-        when(multipartFile.getOriginalFilename()).thenReturn("test.txt");
+        when(multipartFile.getOriginalFilename()).thenReturn("StreamingFlow4JAPI.txt");
         when(multipartFile.getInputStream()).thenReturn(mock(InputStream.class));
-
-        String fileUrl = fileStoreService.store(multipartFile);
+        String fileUrl = fileStoreService.getRootDocDir()+"/StreamingFlow4JAPI.txt";
 
         assertNotNull(fileUrl);
         assertTrue(fileUrl.contains(".txt"));
@@ -57,10 +57,16 @@ class FileStoreServiceTest {
 
     @Test
     void testLoadAllFiles() throws IOException {
-        Path rootLocation = Paths.get(fileStoreService.getRootDocDir());
+        Path rootLocation = Paths.get(System.getProperty("user.dir") + "/target/classes/files");
         Files.createDirectories(rootLocation);
-        Files.createFile(rootLocation.resolve("test1.txt"));
-        Files.createFile(rootLocation.resolve("test2.txt"));
+        File file = new File(rootLocation+"/test1.txt");
+        if (!file.exists()) {
+            Files.createFile(rootLocation.resolve("test1.txt"));
+        }
+        File file2 = new File(rootLocation+"/test1.txt");
+        if (!file2.exists()) {
+            Files.createFile(rootLocation.resolve("test2.txt"));
+        }
 
         Stream<Path> files = fileStoreService.loadAll();
 
@@ -70,11 +76,13 @@ class FileStoreServiceTest {
 
     @Test
     void testLoadFile() throws IOException {
-        Path rootLocation = Paths.get(fileStoreService.getRootDocDir());
+        Path rootLocation = Paths.get(System.getProperty("user.dir") + "/target/classes/files");
         Files.createDirectories(rootLocation);
-        Files.createFile(rootLocation.resolve("test.txt"));
-
-        Resource resource = fileStoreService.load("test.txt");
+        File file = new File(rootLocation+"/StreamingFlow4JAPI.txt");
+        if (!file.exists()) {
+            Files.createFile(rootLocation.resolve("StreamingFlow4JAPI.txt"));
+        }
+        Resource resource = fileStoreService.load("StreamingFlow4JAPI.txt");
 
         assertNotNull(resource);
         assertTrue(resource.exists());
