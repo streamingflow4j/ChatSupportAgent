@@ -74,7 +74,7 @@ public class MessageService {
 				.build();
 
 		CompletableFuture<String> token = ask(assistant, msg);
-		logger.warning(MessageFormat.format("Response: %s%n{0}", token));
+		logger.warning(token.get());
 
 		return token.get();
 	}
@@ -90,7 +90,7 @@ public class MessageService {
 				.build();
 
 		CompletableFuture<String> token = ask(assistant, msg);
-		logger.warning(MessageFormat.format("Response: %s%n{0}", token));
+		logger.warning(token.get());
 
 		return token.get();
 	}
