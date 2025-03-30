@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class ChatControllerTest {
+class ChatControllerTest {
 
     @Mock
     private MessageService messageService;
@@ -33,7 +33,7 @@ public class ChatControllerTest {
     }
 
     @Test
-    public void testGetChatPage() {
+    void testGetChatPage() {
         ChatForm chatForm = new ChatForm();
         when(messageService.getMessages()).thenReturn(new ArrayList<>());
 
@@ -44,7 +44,7 @@ public class ChatControllerTest {
     }
 
     @Test
-    public void testPostChatMessage() throws IOException, ExecutionException, InterruptedException {
+    void testPostChatMessage() throws IOException, ExecutionException, InterruptedException {
         ChatForm chatForm = new ChatForm();
         chatForm.setMessageText("Hello, World!");
         when(messageService.getMessages()).thenReturn(new ArrayList<>());

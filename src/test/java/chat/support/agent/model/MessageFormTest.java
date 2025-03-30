@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageFormTest {
 
     @Test
-    public void testMessageFormConstructorAndGetters() {
+    void testMessageFormConstructorAndGetters() {
         MessageForm messageForm = new MessageForm("Hello, World!");
 
         assertEquals("Hello, World!", messageForm.getText());
     }
 
     @Test
-    public void testMessageFormSetters() {
+    void testMessageFormSetters() {
         MessageForm messageForm = new MessageForm();
         messageForm.setText("Hello, World!");
 
@@ -21,7 +21,7 @@ class MessageFormTest {
     }
 
     @Test
-    public void testNoArgsConstructor() {
+    void testNoArgsConstructor() {
         MessageForm messageForm = new MessageForm();
 
         assertNull(messageForm.getText());

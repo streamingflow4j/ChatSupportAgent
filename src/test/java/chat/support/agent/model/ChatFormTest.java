@@ -3,10 +3,10 @@ package chat.support.agent.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ChatFormTest {
+class ChatFormTest {
 
     @Test
-    public void testChatFormConstructorAndGetters() {
+    void testChatFormConstructorAndGetters() {
         ChatForm chatForm = new ChatForm("user1", "Hello, World!", "text");
 
         assertEquals("user1", chatForm.getUsername());

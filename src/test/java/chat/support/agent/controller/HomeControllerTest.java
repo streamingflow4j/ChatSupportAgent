@@ -1,7 +1,7 @@
 package chat.support.agent.controller;
 
 import chat.support.agent.model.MessageForm;
-import chat.support.agent.service.FIleStoreService;
+import chat.support.agent.service.FileStoreService;
 import chat.support.agent.service.MessageListService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class HomeControllerTest {
+class HomeControllerTest {
 
     @Mock
     private MessageListService messageListService;
 
     @Mock
-    private FIleStoreService fileStoreService;
+    private FileStoreService fileStoreService;
 
     @Mock
     private Model model;
@@ -39,7 +39,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testGetHomePage() {
+    void testGetHomePage() {
         MessageForm messageForm = new MessageForm();
         when(messageListService.getMessages()).thenReturn(new ArrayList<>());
 
@@ -50,7 +50,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testAddMessage() {
+    void testAddMessage() {
         MessageForm messageForm = new MessageForm();
         messageForm.setText("Hello, World!");
         when(messageListService.getMessages()).thenReturn(new ArrayList<>());
@@ -64,7 +64,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testGetSimpleHomePage() {
+    void testGetSimpleHomePage() {
         String viewName = homeController.getSimpleHomePage(model);
 
         verify(model, times(1)).addAttribute("firstVisit", "TRUE");
@@ -72,7 +72,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testHandleFileUpload() {
+    void testHandleFileUpload() {
         String viewName = homeController.handleFileUpload(fileUpload, model);
 
         verify(fileStoreService, times(1)).store(fileUpload);

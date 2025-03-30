@@ -3,8 +3,6 @@ package chat.support.agent.service;
 
 import chat.support.agent.exceptions.StorageException;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -22,11 +20,11 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
-public class FIleStoreService {
+public class FileStoreService {
 
     private final Path rootLocation;
 
-    public FIleStoreService(){
+    public FileStoreService(){
         rootLocation = Paths.get(getRootDocDir());
     }
     public String getRootDocDir() {

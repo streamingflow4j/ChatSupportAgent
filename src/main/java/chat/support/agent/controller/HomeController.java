@@ -1,9 +1,8 @@
 package chat.support.agent.controller;
 
 import chat.support.agent.model.MessageForm;
-import chat.support.agent.service.FIleStoreService;
+import chat.support.agent.service.FileStoreService;
 import chat.support.agent.service.MessageListService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class HomeController {
 
 	private final MessageListService messageListService;
-	private final FIleStoreService fileStoreService;
+	private final FileStoreService fileStoreService;
 
-	public HomeController(MessageListService messageListService, FIleStoreService fileStoreService) {
+	public HomeController(MessageListService messageListService, FileStoreService fileStoreService) {
 		this.messageListService = messageListService;
         this.fileStoreService = fileStoreService;
     }
