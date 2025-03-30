@@ -19,6 +19,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -73,7 +74,7 @@ public class MessageService {
 				.build();
 
 		CompletableFuture<String> token = ask(assistant, msg);
-		logger.warning("Response: %s%n"+ token);
+		logger.warning(MessageFormat.format("Response: %s%n{0}", token));
 
 		return token.get();
 	}
@@ -89,7 +90,7 @@ public class MessageService {
 				.build();
 
 		CompletableFuture<String> token = ask(assistant, msg);
-		logger.warning("Response: %s%n"+ token);
+		logger.warning(MessageFormat.format("Response: %s%n{0}", token));
 
 		return token.get();
 	}
