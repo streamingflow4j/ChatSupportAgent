@@ -18,12 +18,12 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/chat")
 public class ChatController {
 
-	@Autowired
-	private MessageService messageService;
 
-//	public ChatController(MessageService messageService) {
-//		this.messageService = messageService;
-//	}
+	private final MessageService messageService;
+
+	public ChatController(MessageService messageService) {
+		this.messageService = messageService;
+	}
 
 	@GetMapping
 	public String getChatPage(ChatForm chatForm, Model model) {

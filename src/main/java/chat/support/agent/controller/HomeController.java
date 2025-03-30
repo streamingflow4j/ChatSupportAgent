@@ -13,14 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private MessageListService messageListService;
-	@Autowired
-	FIleStoreService fileStoreService;
+	private final MessageListService messageListService;
+	private final FIleStoreService fileStoreService;
 
-//	public HomeController(MessageListService messageListService) {
-//		this.messageListService = messageListService;
-//	}
+	public HomeController(MessageListService messageListService, FIleStoreService fileStoreService) {
+		this.messageListService = messageListService;
+        this.fileStoreService = fileStoreService;
+    }
 
 	@GetMapping("/home")
 	public String getHomePage(@ModelAttribute("newMessage") MessageForm messageForm, Model model) {
