@@ -28,8 +28,7 @@ public class FileStoreService {
         rootLocation = Paths.get(getRootDocDir());
     }
     public String getRootDocDir() {
-        String path = System.getProperty("user.dir") + "/target/classes/files";
-        return path;
+        return System.getProperty("user.dir") + "/target/classes/files";
     }
     public String store(MultipartFile file) {
         try {

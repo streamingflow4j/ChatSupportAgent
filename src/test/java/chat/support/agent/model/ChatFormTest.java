@@ -15,7 +15,7 @@ class ChatFormTest {
     }
 
     @Test
-    public void testChatFormSetters() {
+    void testChatFormSetters() {
         ChatForm chatForm = new ChatForm();
         chatForm.setUsername("user1");
         chatForm.setMessageText("Hello, World!");
@@ -27,7 +27,7 @@ class ChatFormTest {
     }
 
     @Test
-    public void testNoArgsConstructor() {
+    void testNoArgsConstructor() {
         ChatForm chatForm = new ChatForm();
 
         assertNull(chatForm.getUsername());

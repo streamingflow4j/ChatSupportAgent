@@ -19,35 +19,35 @@ public class Lang4jTools {
 
     @Tool("Deletion for a defined Rule with API structure body")
     public void deleteRule(@P("Structure for Deletion body") String body) throws Exception {
-        logger.warning("Tool executed: ===> "+body);
+        logger.warning(body);
         chamarRestEndPoint(BASE_URI+"/rule/delete", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Update for a defined Rule with API structure body")
     public void updateRule(@P("Structure for Update body defined") String body) throws Exception {
-        logger.warning("Tool executed: ===> "+body);
+        logger.warning(body);
         chamarRestEndPoint(BASE_URI+"/rule/update", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Create a new Rule with API structure body")
     public void createRule(@P("Structure for new Rule body") String body) throws Exception {
-        logger.warning("Tool executed: ===> "+body);
+        logger.warning(body);
         chamarRestEndPoint(BASE_URI+"/rule/create", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Create event with API structure body")
     public void createEvent(@P("Structure for Create event body")String body) throws Exception {
-        logger.warning("Tool executed: ===> "+body);
+        logger.warning(body);
         chamarRestEndPoint(BASE_URI+"/event/create", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Create data input for defined event with API structure body")
     public void createData(@P("Structure for Create data input body") String body) throws Exception {
-        logger.warning("Tool executed: ===> "+body);
+        logger.warning(body);
         chamarRestEndPoint(BASE_URI+"/data/create", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
