@@ -35,7 +35,7 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping("/simplehome")
+	@GetMapping("/simplehome")
 	public String getSimpleHomePage(Model model) {
 		model.addAttribute("firstVisit", "TRUE");
 		return "simple-home";
