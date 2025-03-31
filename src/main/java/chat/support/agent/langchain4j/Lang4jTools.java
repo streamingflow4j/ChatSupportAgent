@@ -13,44 +13,44 @@ public class Lang4jTools {
 
     static Logger logger = Logger.getLogger(String.valueOf(Lang4jTools.class));
 
-    private final String BASE_URI;
+    private final String baseUri;
 
     public Lang4jTools(String baseUri){
-        this.BASE_URI = baseUri;
+        this.baseUri = baseUri;
     }
 
     @Tool("Deletion for a defined Rule with API structure body")
     public void deleteRule(@P("Structure for Deletion body") String body) throws Exception {
         logger.warning(body);
-        chamarRestEndPoint(BASE_URI+"/rule/delete", HttpMethod.POST,
+        chamarRestEndPoint(baseUri+"/rule/delete", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Update for a defined Rule with API structure body")
     public void updateRule(@P("Structure for Update body defined") String body) throws Exception {
         logger.warning(body);
-        chamarRestEndPoint(BASE_URI+"/rule/update", HttpMethod.POST,
+        chamarRestEndPoint(baseUri+"/rule/update", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Create a new Rule with API structure body")
     public void createRule(@P("Structure for new Rule body") String body) throws Exception {
         logger.warning(body);
-        chamarRestEndPoint(BASE_URI+"/rule/create", HttpMethod.POST,
+        chamarRestEndPoint(baseUri+"/rule/create", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Create event with API structure body")
     public void createEvent(@P("Structure for Create event body")String body) throws Exception {
         logger.warning(body);
-        chamarRestEndPoint(BASE_URI+"/event/create", HttpMethod.POST,
+        chamarRestEndPoint(baseUri+"/event/create", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Create data input for defined event with API structure body")
     public void createData(@P("Structure for Create data input body") String body) throws Exception {
         logger.warning(body);
-        chamarRestEndPoint(BASE_URI+"/data/create", HttpMethod.POST,
+        chamarRestEndPoint(baseUri+"/data/create", HttpMethod.POST,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
