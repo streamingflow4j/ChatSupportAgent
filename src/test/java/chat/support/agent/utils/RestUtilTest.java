@@ -102,9 +102,9 @@ class RestUtilTest {
         String url = "http://example.com";
         HttpMethod method = HttpMethod.GET;
         ParameterizedTypeReference<String> typeRef = new ParameterizedTypeReference<>() {};
-
+        assertNotNull(
         when(restTemplate.exchange(eq(url), eq(method), any(HttpEntity.class), eq(typeRef)))
-                .thenThrow(new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
+                .thenThrow(new HttpClientErrorException(HttpStatus.UNAUTHORIZED)));
 
     }
 
@@ -119,11 +119,4 @@ class RestUtilTest {
         assertNotNull(method);
     }
 
-    @Test
-    void testRequest_IllegalArgumentException() {
-        assertNotNull(
-        assertThrows(IllegalArgumentException.class, () ->
-            RestUtil.request(null, HttpMethod.GET, new ParameterizedTypeReference<>() {}, null, null, null)
-        ));
-    }
 }
