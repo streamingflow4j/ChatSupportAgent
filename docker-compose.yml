@@ -44,7 +44,7 @@ services:
     ports:
       - "8185:8185"
     environment:
-      OLLAMA_HOST: http://ollama:11434
+      LLAMA_HOST: http://ollama:11434
       MODEL_NAME: deepseek-r1:1.5b
       JAR_NAME: ChatSupportAgent-0.0.1-SNAPSHOT.jar
     restart: always
