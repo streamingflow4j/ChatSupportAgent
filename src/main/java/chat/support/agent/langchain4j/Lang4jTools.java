@@ -17,7 +17,6 @@ public class Lang4jTools {
 
     public Lang4jTools(String baseUri){
         this.BASE_URI = baseUri;
-        // BASE_URI = "http://localhost:8080/rabbitmq";
     }
 
     @Tool("Deletion for a defined Rule with API structure body")

@@ -1,6 +1,5 @@
 package chat.support.agent.service;
 
-import chat.support.agent.model.ChatForm;
 import chat.support.agent.model.ChatMessage;
 import chat.support.agent.utils.Util;
 import dev.langchain4j.data.segment.TextSegment;
@@ -12,10 +11,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class MessageServiceTest {
 

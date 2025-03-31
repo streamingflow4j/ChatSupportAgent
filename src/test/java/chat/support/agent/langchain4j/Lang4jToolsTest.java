@@ -6,11 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 
 import static org.junit.Assert.assertThrows;
-import static org.mockito.Mockito.*;
 
 class Lang4jToolsTest {
 
@@ -26,7 +23,7 @@ class Lang4jToolsTest {
     }
 
     @Test
-    void testDeleteRule() throws Exception {
+    void testDeleteRule() {
         String body = "test body";
         assertThrows(DenyAcessException.class, () -> {
             lang4jTools.deleteRule(body);
@@ -34,7 +31,7 @@ class Lang4jToolsTest {
     }
 
     @Test
-    void testUpdateRule() throws Exception {
+    void testUpdateRule(){
         String body = "test body";
         assertThrows(DenyAcessException.class, () -> {
             lang4jTools.updateRule(body);
@@ -43,7 +40,7 @@ class Lang4jToolsTest {
     }
 
     @Test
-    void testCreateRule() throws Exception {
+    void testCreateRule(){
         String body = "test body";
         assertThrows(DenyAcessException.class, () -> {
             lang4jTools.createRule(body);
@@ -51,7 +48,7 @@ class Lang4jToolsTest {
     }
 
     @Test
-    void testCreateEvent() throws Exception {
+    void testCreateEvent(){
         String body = "test body";
         assertThrows(DenyAcessException.class, () -> {
             lang4jTools.createEvent(body);
@@ -60,7 +57,7 @@ class Lang4jToolsTest {
     }
 
     @Test
-    void testCreateData() throws Exception {
+    void testCreateData(){
         String body = "test body";
         assertThrows(DenyAcessException.class, () -> {
             lang4jTools.createData(body);
