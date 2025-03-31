@@ -13,7 +13,7 @@ public class ChatMessage {
 
 	private String message;
 
-	public void setMessage(String username, String messageText) {
+	public void addMessage(String username, String messageText) {
 		this.message = username.concat(": " + messageText);
 	}
 }

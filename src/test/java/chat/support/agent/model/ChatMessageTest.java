@@ -16,8 +16,9 @@ class ChatMessageTest {
     void testChatMessageSetters() {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setMessage("Hello, World!");
-
         assertEquals("Hello, World!", chatMessage.getMessage());
+        chatMessage.addMessage("testUser", "Hello, World!");
+        assertEquals("testUser: Hello, World!", chatMessage.getMessage());
     }
 
     @Test

@@ -22,7 +22,6 @@ public class Util {
 
     public static List<Document> getDocs() throws IOException {
         String path = System.getProperty("user.dir") + "/target/classes/files";
-               // System.getProperty("user.dir") + "/files";
         List<Document> documents =
                 FileSystemDocumentLoader.loadDocuments(path);
 

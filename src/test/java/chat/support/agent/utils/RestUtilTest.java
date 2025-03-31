@@ -1,7 +1,5 @@
 package chat.support.agent.utils;
 
-import chat.support.agent.exceptions.DenyAcessException;
-import chat.support.agent.exceptions.InternalErrorException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
