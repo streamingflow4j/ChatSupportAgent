@@ -13,9 +13,12 @@ public class Lang4jTools {
 
     static Logger logger = Logger.getLogger(String.valueOf(Lang4jTools.class));
 
-    private static final String BASE_URI = "http://localhost:8080/rabbitmq";
+    private final String BASE_URI;
 
-    public Lang4jTools(){}
+    public Lang4jTools(String baseUri){
+        this.BASE_URI = baseUri;
+        // BASE_URI = "http://localhost:8080/rabbitmq";
+    }
 
     @Tool("Deletion for a defined Rule with API structure body")
     public void deleteRule(@P("Structure for Deletion body") String body) throws Exception {

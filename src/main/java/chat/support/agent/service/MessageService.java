@@ -32,7 +32,7 @@ public class MessageService {
 
 	private static Logger logger = Logger.getLogger(String.valueOf(MessageService.class));
 	private String message;
-
+    private String BASE_URI = "http://localhost:8080/rabbitmq";
 	private List<ChatMessage> chatMsglist;
 
 	public MessageService() {
@@ -68,7 +68,7 @@ public class MessageService {
 
 		LangChain4jAssistant assistant = AiServices.builder(LangChain4jAssistant.class)
 				.chatLanguageModel(model)
-				.tools(new Lang4jTools())
+				.tools(new Lang4jTools(BASE_URI))
 				.chatMemory(MessageWindowChatMemory.withMaxMessages(10))
 				.contentRetriever(EmbeddingStoreContentRetriever.from(this.getEmbedingStore()))
 				.build();
