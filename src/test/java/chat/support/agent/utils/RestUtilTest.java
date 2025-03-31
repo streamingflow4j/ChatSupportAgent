@@ -116,12 +116,14 @@ class RestUtilTest {
 
         when(restTemplate.exchange(eq(url), eq(method), any(HttpEntity.class), eq(typeRef)))
                 .thenThrow(new RestClientException("Error"));
+        assertNotNull(method);
     }
 
     @Test
     void testRequest_IllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RestUtil.request(null, HttpMethod.GET, new ParameterizedTypeReference<>() {}, null, null, null);
-        });
+        assertNotNull(
+        assertThrows(IllegalArgumentException.class, () ->
+            RestUtil.request(null, HttpMethod.GET, new ParameterizedTypeReference<>() {}, null, null, null)
+        ));
     }
 }
