@@ -1,32 +1,46 @@
-<!doctype html>
-<html lang="en">
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link type="text/css" rel="stylesheet" href="/css/chatstyle.css" />
-	<title>Chat Page</title>
+	<link rel="stylesheet" href="/css/chatstyle.css" />
+	<title>Chat Assistant - StreamingFlow4J</title>
+
 </head>
 <body>
 <header>
-	<h1>Chat Page Assistant of the StreamingFlow4J!</h1>
+	<h1>StreamingFlow4J Chat Assistant</h1>
 </header>
+
 <div class="container">
 	<form th:object="${chatForm}" action="#" th:action="@{/chat}" method="POST">
-		<label for="messageText"><b>Message Text:</b></label>
-		<textarea id="messageText" rows="10" cols="100" th:field="*{messageText}"></textarea>
-		<button id="submitMessage" type="submit">Send</button>
+		<label for="messageText"><b>Your Message:</b></label>
+		<textarea id="messageText" rows="5" th:field="*{messageText}"
+				  placeholder="Type your message here..."></textarea>
+		<button id="submitMessage" type="submit">Send Message</button>
 	</form>
-</div>
 
-<div class="chat-container">
-	<table class="chat-table" th:each="chatMessage: ${chats}">
-		<tr>
-			<td th:text="${chatMessage.message}">Msg</td>
-		</tr>
-	</table>
+	<div class="chat-container">
+		<table class="chat-table">
+			<tr th:each="chatMessage: ${chats}">
+				<td>
+					<div th:class="${chatMessage.role == 'User' ? 'message user-message' : 'message assistant-message'}">
+						<div class="message-content" th:utext="${#strings.escapeXml(chatMessage.message)
+                                .replace('\n', '<br>')
+                                .replace('**', '<strong>')
+                                .replace('**', '</strong>')
+                                .replace('*', '<em>')
+                                .replace('*', '</em>')
+                                .replace('`', '<code>')
+                                .replace('`', '</code>')}">
+						</div>
+						<div class="message-time" th:text="${#temporals.format(chatMessage.timestamp, 'HH:mm')}"></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 </body>
 </html>

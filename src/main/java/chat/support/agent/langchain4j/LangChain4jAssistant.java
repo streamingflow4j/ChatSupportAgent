@@ -24,6 +24,6 @@ public interface LangChain4jAssistant {
                Check the message history for this information before asking the user. \
                If there is a charge for the change, you MUST ask the user to consent before proceeding. \
                You are available for send request using API attribute body.
-            """)
+            """) 
     TokenStream chat(String userMessage);
 }

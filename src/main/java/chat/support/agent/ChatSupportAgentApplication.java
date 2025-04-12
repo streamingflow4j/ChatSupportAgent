@@ -1,5 +1,6 @@
 package chat.support.agent;
 
+
 import chat.support.agent.langchain4j.Lang4jTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +20,7 @@ public class ChatSupportAgentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ChatSupportAgentApplication.class, args);
 	}
+
 
 	@Bean
 	public ModelMapper getModelMapper(){
