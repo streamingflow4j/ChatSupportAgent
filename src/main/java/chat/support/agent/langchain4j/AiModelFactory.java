@@ -33,8 +33,8 @@ public class AiModelFactory {
     public static StreamingChatLanguageModel createLocalOllamaStreamingChatModel() {
         environment = new StandardEnvironment();
         return OllamaStreamingChatModel.builder()
-                .baseUrl(BASE_URL)
-                .modelName(MODEL)
+                .baseUrl(environment.getRequiredProperty("ollama.host"))
+                .modelName(environment.getRequiredProperty("ollama.model"))
                 .timeout(Duration.ofHours(1))
                 .logRequests(true)
                 .logResponses(true)
