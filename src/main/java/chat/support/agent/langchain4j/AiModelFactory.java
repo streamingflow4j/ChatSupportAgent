@@ -10,10 +10,6 @@ import java.time.Duration;
 
 public class AiModelFactory {
 
-    private static final String MODEL = "deepseek-r1:1.5b";
-
-    private static final String BASE_URL = "http://localhost:11434";
-
     private static StandardEnvironment environment;
 
     private AiModelFactory() {
