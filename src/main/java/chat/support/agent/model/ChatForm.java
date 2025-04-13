@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ChatForm {
 
+    private String messageBroker;
     private String username;
     private String messageText;
     private String messageType;

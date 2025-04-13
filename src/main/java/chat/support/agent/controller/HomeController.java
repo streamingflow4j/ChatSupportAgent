@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
 
 	private final MessageListService messageListService;
@@ -20,7 +21,7 @@ public class HomeController {
         this.fileStoreService = fileStoreService;
     }
 
-	@GetMapping("/home")
+	@GetMapping
 	public String getHomePage(@ModelAttribute("newMessage") MessageForm messageForm, Model model) {
 		model.addAttribute("greetings", this.messageListService.getMessages());
 		return "home";

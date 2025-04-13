@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 public class MessageService {
 
 	private static Logger logger = Logger.getLogger(String.valueOf(MessageService.class));
-    private static final String URI = "http://localhost:8080/kafka";
+    private static String URI;
 	private List<ChatMessage> chatMsglist;
 
 	public MessageService() {}
@@ -46,6 +46,7 @@ public class MessageService {
 		ChatMessage newMessage = new ChatMessage();
 
 		//add chat MSG streaming
+		URI = "http://localhost:8080/"+chatForm.getMessageBroker();
 		newMessage.setRole("User");
 		newMessage.setTimestamp(LocalDate.now());
 		newMessage.setMessage("|CHAT| ====> "+ userChat(chatForm.getMessageText()));

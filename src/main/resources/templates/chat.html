@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +18,13 @@
 		<label for="messageText"><b>Your Message:</b></label>
 		<textarea id="messageText" rows="5" th:field="*{messageText}"
 				  placeholder="Type your message here..."></textarea>
+		<label for="messageBroker"><b>Choose Message Broker:</b>
+		<select id="messageBroker" th:field="*{messageBroker}">
+			<option value="kafka">Kafka</option>
+			<option value="rabbitmq">RabbitMQ</option>
+			<option value="redis">Redis</option>
+		</select>
+		</label>
 		<button id="submitMessage" type="submit">Send Message</button>
 	</form>
 
