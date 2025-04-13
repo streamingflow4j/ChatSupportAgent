@@ -24,7 +24,7 @@ a) Defining a context element entity for event types:
 -- post request Body:
 
 {
-"type" : "ADD_EVENT",
+"type" : "EVENT_CREATE",
 "id" : "EventTest",
 "attributes" : [
 {
@@ -46,17 +46,17 @@ b) Creating context rules for event types:
 -- post request Body:
 
 {
-"type" : "RULECEP",
+"type" : "RULE_CREATE", 
 "id" : "Rule7",
 "attributes" : [
-{ "name"  : "RULE",   --Attribute for rule definition
+{ "name"  : "RULE_QUERY",   --Attribute for rule definition
 "type"  : "String",
-"value" : "select measure from EventTest.win:time(5 sec)"
+"value" : "select temperature from Thermometer.win:time(5 sec)"
 },
 {
 "name"  : "QUEUE_1",
-"type"  : "QUEUE",         --Attribute for destination queue of rule outcomes
-"value" : "si.cep.queue"
+"type"  : "RULE_QUEUE",         --Attribute for destination queue of rule outcomes
+"value" : "si.cep.queue" 
 }
 ]
 }
@@ -67,22 +67,22 @@ c) Updating context rules for event types:
 -- post request Body:
 
 {
-"type" : "EDIT_RULECEP",
+"type" : "RULE_UPDATE",
 "id" : "Rule3",
 "attributes" : [
-{
+{ 
 "name"  : "RULE_ID",   --Obs.: rule id can be obtained in the logfile.
 "type"  : "String",
-"value" : "7083533ac2e0"
+"value" : "f9c9c1c1-d1ed-4f03-99cb-7083533ac2e0"
 },
 {
-"name"  : "RULE",    --Attribute for rule update
-"type"  : "String",
-"value" : "select measure from EventTest.win:time(10 sec)"
+"name"  : "RULE_QUERY",    --Attribute for rule update
+"type"  : "String",  
+"value" : "select temperature from Thermometer.win:time(10 sec)"
 },
 {
 "name"  : "QUEUE_1",
-"type"  : "QUEUE",        --You can change destination queue or else keep the same
+"type"  : "RULE_QUEUE",
 "value" : "si.cep.queue"
 }
 ]
@@ -94,13 +94,13 @@ d) Delete a rule defined:
 -- post request Body:
 
 {
-"type" : "DEL_RULE",
+"type" : "RULE_DELETE",
 "id" : "DelRule3",
 "attributes" : [
 {
 "name"  : "RULE_ID",
 "type"  : "String",
-"value" : "59684e480327"
+"value" : "d081f1bc-4d68-4427-bd47-59684e480327"
 }
 ]
 }
@@ -111,11 +111,11 @@ e) Scope of data producer:
 -- post request Body:
 
 {
-"type" : "EventTest",
+"type" : "Thermometer",
 "id" : "1",
 "attributes" : [
-{
-"name" : "measure",
+{ 
+"name" : "temperature",
 "type" : "Double",
 "value" : "2"
 }

@@ -2,38 +2,52 @@ package chat.support.agent.langchain4j;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
-import dev.langchain4j.model.ollama.OllamaChatModel;
-import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
-import org.springframework.core.env.StandardEnvironment;
+import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.model.openai.OpenAiStreamingChatModel;
 
 import java.time.Duration;
 
 public class AiModelFactory {
 
-    private static StandardEnvironment environment;
 
     private AiModelFactory() {
+        throw new IllegalStateException("Factory class shouldn't be instantiated");
     }
-    public static ChatLanguageModel createLocalChatOllamaModel() {
-        environment = new StandardEnvironment();
-        return  OllamaChatModel.builder()
-                .baseUrl(environment.getRequiredProperty("ollama.host"))
-                .modelName(environment.getRequiredProperty("ollama.model"))
-                .temperature(0.7)
+
+    public static ChatLanguageModel createLocalChatModel() {
+        return OpenAiChatModel.builder()
+                .baseUrl("http://localhost:1234/v1")
+                .apiKey("ignore")
+                //     .temperature(0.7)
                 .logRequests(true)
-                .logResponses(true)
+                .timeout(Duration.ofSeconds(300))
+                .build();
+    }
+
+    public static StreamingChatLanguageModel createStremingLocalChatModel() {
+        return OpenAiStreamingChatModel
+                .builder()
+                .baseUrl("http://localhost:1234/v1")
+                .apiKey("ignore")
+                .logRequests(true)
+                .timeout(Duration.ofSeconds(300))
                 .build();
     }
 
     //-------------------  StreamingChat Models ----------------
-    public static StreamingChatLanguageModel createLocalOllamaStreamingChatModel() {
-        environment = new StandardEnvironment();
-        return OllamaStreamingChatModel.builder()
-                .baseUrl(environment.getRequiredProperty("ollama.host"))
-                .modelName(environment.getRequiredProperty("ollama.model"))
-                .timeout(Duration.ofHours(1))
+    public static StreamingChatLanguageModel createStremingOpenAIChatModel() {
+        return OpenAiStreamingChatModel
+                .builder()
+                .modelName("gemini-1.5-pro")
+                .apiKey(System.getenv("GEMINI_API_KEY"))
+                .build();
+    }
+    public static ChatLanguageModel createOpenAIChatModel() {
+        return OpenAiChatModel.builder()
+                .modelName("gpt-4o-mini")
+                .apiKey("demo")
+                //  .temperature(0.7)
                 .logRequests(true)
-                .logResponses(true)
                 .build();
     }
 }

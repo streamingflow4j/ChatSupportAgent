@@ -1,12 +1,14 @@
 package chat.support.agent.service;
 
 import chat.support.agent.langchain4j.AiModelFactory;
+import chat.support.agent.langchain4j.Lang4jTools;
 import chat.support.agent.langchain4j.LangChain4jAssistant;
 import chat.support.agent.model.ChatForm;
 import chat.support.agent.model.ChatMessage;
 import chat.support.agent.utils.Util;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.service.AiServices;
@@ -19,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -30,8 +31,7 @@ import java.util.logging.Logger;
 public class MessageService {
 
 	private static Logger logger = Logger.getLogger(String.valueOf(MessageService.class));
-	private String message;
-    private static final String URI = "http://localhost:8080/rabbitmq";
+    private static final String URI = "http://localhost:8080/kafka";
 	private List<ChatMessage> chatMsglist;
 
 	public MessageService() {}
@@ -48,7 +48,7 @@ public class MessageService {
 		//add chat MSG streaming
 		newMessage.setRole("User");
 		newMessage.setTimestamp(LocalDate.now());
-		newMessage.setMessage("|CHAT| ====> "+ streamingUserChat(chatForm.getMessageText()));
+		newMessage.setMessage("|CHAT| ====> "+ userChat(chatForm.getMessageText()));
 
 		chatMsglist.add(newMessage);
 	}
@@ -63,10 +63,10 @@ public class MessageService {
 		EmbeddingStoreIngestor.ingest(Util.getDocs(), embeddingStore);
 		return embeddingStore;
 	}
-/*//modelo tradicional responde no final
+
 	public String userChat(String msg) throws IOException, ExecutionException, InterruptedException {
 
-		ChatLanguageModel model = AiModelFactory.createLocalChatOllamaModel();
+		ChatLanguageModel model = AiModelFactory.createOpenAIChatModel();
 
 		LangChain4jAssistant assistant = AiServices.builder(LangChain4jAssistant.class)
 				.chatLanguageModel(model)
@@ -80,11 +80,10 @@ public class MessageService {
 
 		return token.get();
 	}
-*/
-//modelo streaming que vai gerando respostas e responde on the fly
+
 	public String streamingUserChat(String msg) throws IOException, ExecutionException, InterruptedException {
 
-		StreamingChatLanguageModel model = AiModelFactory.createLocalOllamaStreamingChatModel();
+		StreamingChatLanguageModel model = AiModelFactory.createStremingOpenAIChatModel();
 
 		LangChain4jAssistant assistant = AiServices.builder(LangChain4jAssistant.class)
 				.streamingChatLanguageModel(model)
@@ -92,13 +91,22 @@ public class MessageService {
 				.contentRetriever(EmbeddingStoreContentRetriever.from(this.getEmbedingStore()))
 				.build();
 
-		CompletableFuture<String> token = ask(assistant, msg);
+		CompletableFuture<String> token = askStream(assistant, msg);
 		logger.warning(token.get());
 
 		return token.get();
 	}
+
 	public static CompletableFuture<String> ask(LangChain4jAssistant assistant, String msg) {
-		TokenStream tokenStream = assistant.chat(msg);
+		String token = assistant.chat(msg);
+		CompletableFuture<String> future = new CompletableFuture<>();
+		future.complete(token);
+
+		return future;
+	}
+
+	public static CompletableFuture<String> askStream(LangChain4jAssistant assistant, String msg) {
+		TokenStream tokenStream = assistant.chatStream(msg);
 		CompletableFuture<String> future = new CompletableFuture<>();
 		tokenStream.onNext(System.out::print)
 				.onComplete((a) -> {
