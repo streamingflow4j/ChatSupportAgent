@@ -1,5 +1,6 @@
 package chat.support.agent.langchain4j;
 
+import chat.support.agent.utils.Util;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.DocumentParser;
 import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
@@ -24,13 +25,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ResourceLoader;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.logging.Logger;
+
 import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive;
 import static org.testcontainers.shaded.com.google.common.io.MoreFiles.getFileExtension;
 
 @Configuration
 public class LangChain4jConfig {
+
+    static Logger logger = Logger.getLogger(String.valueOf(LangChain4jConfig.class));
 
     private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext();
 
@@ -53,8 +60,13 @@ public class LangChain4jConfig {
             ResourceLoader resourceLoader
     ) {
         return args -> {
-            Path path = Paths.get(System.getProperty("user.dir") + "/target/classes/files/StreamingFlow4JAPI.txt");
-            Document termsOfUse = parse(path);
+            String userDirectory = System.getProperty("user.dir");
+            logger.info(userDirectory);
+            Path currentDirPath = Paths.get("");
+            String currentDir = currentDirPath.toAbsolutePath().toString();
+            logger.info(currentDir);
+
+            List<Document> termsOfUse = Util.getDocs();
             EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
                     .documentSplitter(recursive(50, 0, tokenizer))
                     .embeddingModel(embeddingModel)
@@ -62,22 +74,6 @@ public class LangChain4jConfig {
                     .build();
             ingestor.ingest(termsOfUse);
         };
-    }
-
-    public Document parse(Path documentPath) {
-        String extension = getFileExtension(documentPath);
-        DocumentParser documentParser;
-        switch (extension) {
-            case "pdf":
-                documentParser = new ApachePdfBoxDocumentParser();
-                break;
-            case "doc", "xlsx", "docx", "xls", "ppt", "pptx":
-                documentParser = new ApachePoiDocumentParser();
-                break;
-            default:
-                documentParser = new TextDocumentParser();
-        }
-        return FileSystemDocumentLoader.loadDocument(documentPath, documentParser);
     }
 
     @Bean

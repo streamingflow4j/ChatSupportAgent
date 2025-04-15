@@ -1,40 +1,6 @@
 version: "3"
 services:
 
-  ollama:
-    image: ollama/ollama
-    container_name: ollama
-    volumes:
-      - /home/ollama:/root/.ollama:z
-    restart: unless-stopped
-    ports:
-      - 11434:11434
-    environment:
-      - OLLAMA_HOST=0.0.0.0
-      - OLLAMA_ORIGINS=*
-    networks:
-      - chat_go_net
-
-
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
-    volumes:
-      - /home/open-webui:/app/backend/data:z
-    depends_on:
-      - ollama
-    ports:
-      - 3000:8080
-    environment:
-      - 'OLLAMA_BASE_URL=http://ollama:11434'
-      - 'WEBUI_SECRET_KEY='
-    extra_hosts:
-      - host.docker.internal:host-gateway
-    restart: unless-stopped
-    networks:
-      - chat_go_net
-
-
   chatsupportagent:
     container_name: chatsupportagent
     build:
@@ -45,6 +11,7 @@ services:
       - "8185:8185"
     environment:
       JAR_NAME: ChatSupportAgent-0.0.1-SNAPSHOT.jar
+      FILE_PATH: /files
     restart: always
     networks:
       - chat_go_net
