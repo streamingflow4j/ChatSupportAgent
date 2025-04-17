@@ -5,6 +5,7 @@ import chat.support.agent.langchain4j.Lang4jTools;
 import chat.support.agent.langchain4j.LangChain4jAssistant;
 import chat.support.agent.model.ChatForm;
 import chat.support.agent.model.ChatMessage;
+import chat.support.agent.utils.PropertyUtil;
 import chat.support.agent.utils.Util;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 public class MessageService {
 
 	private static Logger logger = Logger.getLogger(String.valueOf(MessageService.class));
-    private static String URI;
+    private static String URI = "";
 	private List<ChatMessage> chatMsglist;
 
 	public MessageService() {}
@@ -46,7 +47,7 @@ public class MessageService {
 		ChatMessage newMessage = new ChatMessage();
 
 		//add chat MSG streaming
-		URI = "http://localhost:8080/"+chatForm.getMessageBroker();
+		URI = new PropertyUtil().getProperty("server.endpoint") +chatForm.getMessageBroker();
 		newMessage.setRole("User");
 		newMessage.setTimestamp(LocalDate.now());
 		newMessage.setMessage("|CHAT| ====> "+ userChat(chatForm.getMessageText()));

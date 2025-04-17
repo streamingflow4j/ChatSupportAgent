@@ -2,6 +2,8 @@ package chat.support.agent.service;
 
 
 import chat.support.agent.exceptions.StorageException;
+import dev.langchain4j.data.document.Document;
+import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -16,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -28,7 +31,16 @@ public class FileStoreService {
         rootLocation = Paths.get(getRootDocDir());
     }
     public String getRootDocDir() {
-        return System.getProperty("user.dir") + "/target/classes/files";
+        String path = "";
+        List<Document> documents;
+        try {
+            path = System.getProperty("user.dir") + "/target/classes/files";
+            documents = FileSystemDocumentLoader.loadDocuments(path);
+        } catch (Exception e) {
+            //docker server path
+            path = "/files";
+        }
+        return path;
     }
     public String store(MultipartFile file) {
         try {

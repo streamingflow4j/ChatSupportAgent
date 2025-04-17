@@ -1,5 +1,6 @@
 package chat.support.agent.utils;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 
 
@@ -14,6 +15,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -33,12 +37,17 @@ public class RestUtil {
 		}
 		try {
 			logger.info("Calling url {}", url);
-			ResponseEntity<T> response = (ResponseEntity<T>) new RestTemplate().exchange(
-					url, 
-					verbo,
-					getHeaders(payload, mediaType, extraHeaders), 
-					typeRef);
 
+			RestTemplate restTemplate = new RestTemplate();
+			restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+			restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+			((SimpleClientHttpRequestFactory) restTemplate.getRequestFactory()).setConnectTimeout(2000);
+
+			ResponseEntity<T> response = (ResponseEntity<T>) restTemplate.exchange(
+					url,
+					verbo,
+					getHeaders(payload, mediaType, extraHeaders),
+					typeRef);
 			return response.getBody();
 		}
 		catch (HttpClientErrorException e) {
@@ -51,7 +60,7 @@ public class RestUtil {
 			throw e;
 		}
 		catch (RestClientException e) {
-			logger.error("RestClientException no acionamento de enpoint", e);
+			logger.error("RestClient Exception no acionamento de enpoint", e);
 			throw new InternalErrorException("Connection declined '"+shortUrl(url)+"'. Error: "+e.getMessage(), e);
 		}
 	}

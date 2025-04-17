@@ -4,17 +4,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/styles.css" />
-	<title>File Upload Page</title>
+	<title>Página de Upload</title>
 </head>
 <body>
-<header>
-	<h1>Welcome to The File Upload!</h1>
+<header class="page-header">
+	<h1>Bem-vindo ao File Upload</h1>
 </header>
-<main>
+<main class="page-main">
+	<div class="chat-link-container">
+		<a class="chat-link" href="/chat">Ir para o Chat</a>
+	</div>
 	<div class="upload-container">
-		<form action="#" enctype="multipart/form-data" th:action="@{/file-upload}" method="POST">
+		<form class="upload-form" action="#" enctype="multipart/form-data" th:action="@{/file-upload}" method="POST">
+			<label for="fileUpload" class="file-label">Selecione os arquivos:</label>
 			<input type="file" id="fileUpload" name="fileUpload" multiple />
-			<button type="submit">Upload Files</button>
+			<button type="submit" class="upload-button">Upload Files</button>
 		</form>
 	</div>
 </main>

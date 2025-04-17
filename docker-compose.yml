@@ -11,13 +11,12 @@ services:
       - "8185:8185"
     environment:
       JAR_NAME: ChatSupportAgent-0.0.1-SNAPSHOT.jar
-      FILE_PATH: /files
+      ENDPOINT_KAFKA: endpoint-kafka:8080
     restart: always
     networks:
-      - chat_go_net
-
+      - broker-kafka
 
 networks:
-  chat_go_net:
+  broker-kafka:
     external: true
     driver: bridge

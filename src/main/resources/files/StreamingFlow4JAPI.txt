@@ -20,7 +20,7 @@ API Strucure:
 
 a) Defining a context element entity for event types:
 
--- server endpoint: EndPoint/rabbitmq/event/create
+-- server endpoint: EndPoint/kafka/event/create
 -- post request Body:
 
 {
@@ -42,7 +42,7 @@ a) Defining a context element entity for event types:
 
 b) Creating context rules for event types:
 
--- server endpoint: EndPoint/rabbitmq/rule/create
+-- server endpoint: EndPoint/kafka/rule/create
 -- post request Body:
 
 {
@@ -63,7 +63,7 @@ b) Creating context rules for event types:
 
 c) Updating context rules for event types:
 
--- server endpoint: EndPoint/rabbitmq/rule/update
+-- server endpoint: EndPoint/kafka/rule/update
 -- post request Body:
 
 {
@@ -90,7 +90,7 @@ c) Updating context rules for event types:
 
 d) Delete a rule defined:
 
--- server endpoint: EndPoint/rabbitmq/rule/delete
+-- server endpoint: EndPoint/kafka/rule/delete
 -- post request Body:
 
 {
@@ -107,7 +107,7 @@ d) Delete a rule defined:
 
 e) Scope of data producer:
 
--- server endpoint: EndPoint/rabbitmq/data/create
+-- server endpoint: EndPoint/kafka/data/create
 -- post request Body:
 
 {
