@@ -1,12 +1,12 @@
 package chat.support.agent.service;
 
+import chat.support.agent.config.AppConfig;
 import chat.support.agent.langchain4j.AiModelFactory;
 import chat.support.agent.langchain4j.Lang4jTools;
 import chat.support.agent.langchain4j.LangChain4jAssistant;
 import chat.support.agent.model.ChatForm;
 import chat.support.agent.model.ChatMessage;
-import chat.support.agent.utils.PropertyUtil;
-import chat.support.agent.utils.Util;
+import chat.support.agent.utils.FileUtil;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -17,6 +17,7 @@ import dev.langchain4j.service.TokenStream;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -42,16 +43,18 @@ public class MessageService {
 		this.chatMsglist = new ArrayList<>();
 		logger.warning ("Created messageService Bean");
 	}
-
+	@Autowired
+	private AppConfig appConfig;
 	public void addMessages(ChatForm chatForm) throws IOException, ExecutionException, InterruptedException {
 		ChatMessage newMessage = new ChatMessage();
 
 		//add chat MSG streaming
-		URI = new PropertyUtil().getProperty("server.endpoint") +chatForm.getMessageBroker();
+		URI = appConfig.getEndpointServer()+chatForm.getMessageBroker();
 		newMessage.setRole("User");
 		newMessage.setTimestamp(LocalDate.now());
 		newMessage.setMessage("|CHAT| ====> "+ userChat(chatForm.getMessageText()));
-
+		//use it if you want streaming response by ollama
+		//newMessage.setMessage("|CHAT| ====> "+ streamingUserChatOllama(chatForm.getMessageText()));
 		chatMsglist.add(newMessage);
 	}
 
@@ -62,7 +65,7 @@ public class MessageService {
 
 	public InMemoryEmbeddingStore<TextSegment>  getEmbedingStore() throws IOException {
 		InMemoryEmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
-		EmbeddingStoreIngestor.ingest(Util.getDocs(), embeddingStore);
+		EmbeddingStoreIngestor.ingest(FileUtil.getDocs(), embeddingStore);
 		return embeddingStore;
 	}
 
@@ -95,6 +98,24 @@ public class MessageService {
 
 		CompletableFuture<String> token = askStream(assistant, msg);
 		logger.warning(token.get());
+
+		return token.get();
+	}
+
+	public String streamingUserChatOllama(String msg) throws IOException, ExecutionException, InterruptedException {
+
+		StreamingChatLanguageModel model = AiModelFactory.createLocalOllamaStreamingChatModel();
+
+		LangChain4jAssistant assistant = AiServices.builder(LangChain4jAssistant.class)
+				// Alternative of .chatLanguageModel() which support streaming response
+				.streamingChatLanguageModel(model)
+				//.tools(new Lang4jTools(URI)) //-->> ollama nao suporta
+				.chatMemory(MessageWindowChatMemory.withMaxMessages(10))
+				.contentRetriever(EmbeddingStoreContentRetriever.from(this.getEmbedingStore()))
+				.build();
+
+		CompletableFuture<String> token = askStream(assistant, msg);
+		logger.warning("Response: %s%n"+ token);
 
 		return token.get();
 	}

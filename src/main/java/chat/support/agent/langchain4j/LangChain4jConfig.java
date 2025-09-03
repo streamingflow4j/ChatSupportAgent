@@ -1,6 +1,6 @@
 package chat.support.agent.langchain4j;
 
-import chat.support.agent.utils.Util;
+import chat.support.agent.utils.FileUtil;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
@@ -33,8 +33,6 @@ public class LangChain4jConfig {
 
     static Logger logger = Logger.getLogger(String.valueOf(LangChain4jConfig.class));
 
-    private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext();
-
     @Bean
     EmbeddingModel embeddingModel(){
         // not good but works for this demo
@@ -60,7 +58,7 @@ public class LangChain4jConfig {
             String currentDir = currentDirPath.toAbsolutePath().toString();
             logger.info(currentDir);
 
-            List<Document> termsOfUse = Util.getDocs();
+            List<Document> termsOfUse = FileUtil.getDocs();
             EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
                     .documentSplitter(recursive(50, 0, tokenizer))
                     .embeddingModel(embeddingModel)

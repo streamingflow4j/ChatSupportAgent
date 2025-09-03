@@ -1,7 +1,7 @@
 package chat.support.agent.service;
 
 import chat.support.agent.model.ChatMessage;
-import chat.support.agent.utils.Util;
+import chat.support.agent.utils.FileUtil;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ class MessageServiceTest {
     private MessageService messageService;
 
     @Mock
-    private Util util;
+    private FileUtil fileUtil;
 
     @BeforeEach
     void setUp() {

@@ -22,14 +22,14 @@ public class Lang4jTools {
     @Tool("Deletion for a defined Rule with API structure body")
     public void deleteRule(@P("Structure for Deletion body") String body) throws Exception {
         logger.warning(body);
-        chamarRestEndPoint(baseUri+"/rule/delete", HttpMethod.POST,
+        chamarRestEndPoint(baseUri+"/rule/delete", HttpMethod.DELETE,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 
     @Tool("Update for a defined Rule with API structure body")
     public void updateRule(@P("Structure for Update body defined") String body) throws Exception {
         logger.warning(body);
-        chamarRestEndPoint(baseUri+"/rule/update", HttpMethod.POST,
+        chamarRestEndPoint(baseUri+"/rule/update", HttpMethod.PUT,
                 new ParameterizedTypeReference<String>() {}, body);
     }
 

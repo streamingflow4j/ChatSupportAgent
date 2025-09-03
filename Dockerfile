@@ -1,5 +1,11 @@
 FROM openjdk:17-oracle
 
+RUN /bin/microdnf install iputils
+
+RUN /bin/microdnf install yum
+
+RUN /bin/microdnf install net-tools
+
 RUN mkdir -p /app
 
 VOLUME /app

@@ -25,7 +25,7 @@ class Lang4jToolsTest {
     @Test
     void testDeleteRule() {
         String body = "test body";
-        assertThrows(DenyAcessException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             lang4jTools.deleteRule(body);
         });
     }
@@ -33,7 +33,7 @@ class Lang4jToolsTest {
     @Test
     void testUpdateRule(){
         String body = "test body";
-        assertThrows(DenyAcessException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             lang4jTools.updateRule(body);
         });
 

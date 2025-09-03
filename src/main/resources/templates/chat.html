@@ -14,6 +14,9 @@
 </header>
 
 <div class="container">
+	<div class="home-link-container">
+		<a class="home-link" href="/">Go Home</a>
+	</div>
 	<form th:object="${chatForm}" action="#" th:action="@{/chat}" method="POST">
 		<label for="messageText"><b>Your Message:</b></label>
 		<textarea id="messageText" rows="5" th:field="*{messageText}"
@@ -49,5 +52,6 @@
 		</table>
 	</div>
 </div>
+
 </body>
 </html>

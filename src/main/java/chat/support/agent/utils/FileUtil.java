@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.testcontainers.shaded.com.google.common.io.MoreFiles.getFileExtension;
 
-public class Util {
+public class FileUtil {
 
     public static Document getDoc() throws IOException {
 
